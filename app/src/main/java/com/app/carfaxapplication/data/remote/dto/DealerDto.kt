@@ -1,5 +1,7 @@
 package com.app.carfaxapplication.data.remote.dto
 
+import com.app.carfaxapplication.domain.model.Dealer
+
 data class DealerDto(
     val address: String,
     val carfaxId: String,
@@ -18,3 +20,10 @@ data class DealerDto(
     val zip: String,
     val phone: String
 )
+
+fun DealerDto.toDealer(): Dealer {
+    return Dealer(
+        name = name,
+        phone = phone
+    )
+}

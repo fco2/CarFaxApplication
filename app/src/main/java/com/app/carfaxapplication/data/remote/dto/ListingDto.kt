@@ -1,8 +1,9 @@
 package com.app.carfaxapplication.data.remote.dto
 
+import com.app.carfaxapplication.domain.model.Listing
 import com.google.gson.annotations.SerializedName
 
-data class ListingsDto(
+data class ListingDto(
     val advantage: Boolean,
     @SerializedName("backfill")
     val backFill: Boolean,
@@ -26,7 +27,7 @@ data class ListingsDto(
     val listPrice: Double,
     val make: String,
     val model: String,
-    val monthlyPaymentEstimate: MonthlyPaymentEstimateDto,
+    //val monthlyPaymentEstimate: MonthlyPaymentEstimateDto,
     val mpgCity: Int,
     val mpgHighway: Int,
     val noAccidents: Boolean,
@@ -36,7 +37,7 @@ data class ListingsDto(
     val personalUse: Boolean,
     val recordType: String,
     val sentLead: Boolean,
-    val sentLeadAt: Any,
+    val sentLeadAt: String,
     val serviceRecords: Boolean,
     val sortScore: Double,
     val stockNumber: String,
@@ -58,3 +59,25 @@ data class ListingsDto(
     val transmission: String,
     val vin: String
 )
+
+fun ListingDto.toListing(): Listing{
+    return Listing(
+        dealer = dealer,
+        dealerType = dealerType,
+        id = id,
+        images = images,
+        make = make,
+        model = model,
+        trim = trim,
+        year = year,
+        bodyType = bodyType,
+        currentPrice = currentPrice,
+        driveType = driveType,
+        engine = engine,
+        exteriorColor = exteriorColor,
+        interiorColor = interiorColor,
+        mileage = mileage,
+        transmission = transmission,
+        vin = vin
+    )
+}
