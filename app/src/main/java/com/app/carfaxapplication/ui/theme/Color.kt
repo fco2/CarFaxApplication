@@ -10,3 +10,7 @@ val Teal200 = Color(0xFF03DAC5)
 val BabyBlue = Color(0xFF0a82f9)
 val DarkBabyBlue = Color(0xFF055cb2)
 val CustomBackground = Color(0xFFececec)
+
+val LightGrey = Color(0xFFc6c6c6)
+
+val NotSoBlack = Color(0xFF444444)

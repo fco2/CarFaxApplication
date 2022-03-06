@@ -1,6 +1,8 @@
 package com.app.carfaxapplication.presentation.main_screen.components
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,16 +18,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import coil.compose.AsyncImage
 import com.app.carfaxapplication.core.Util
 import com.app.carfaxapplication.domain.model.Listing
 import com.app.carfaxapplication.domain.model.SearchArea
 import com.app.carfaxapplication.ui.theme.DarkBabyBlue
-import androidx.core.content.ContextCompat.startActivity
-
-import android.content.Intent
-import android.net.Uri
-import androidx.compose.ui.platform.LocalContext
 
 
 @Composable
@@ -42,6 +40,7 @@ fun AllCarInfoItem(
         .clip(RoundedCornerShape(8.dp))
         .background(Color.White)
         .padding(8.dp)
+        .clickable { onClick(listing) }
         ) {
 
         AsyncImage(

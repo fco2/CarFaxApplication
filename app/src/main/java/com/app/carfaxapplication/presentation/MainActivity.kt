@@ -5,13 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.app.carfaxapplication.R
+import com.app.carfaxapplication.presentation.details_screen.DetailScreen
 import com.app.carfaxapplication.presentation.main_screen.MainScreen
 import com.app.carfaxapplication.presentation.util.ScreenRoutes
 import com.app.carfaxapplication.ui.theme.CarFaxApplicationTheme
@@ -25,32 +26,45 @@ class MainActivity : ComponentActivity() {
             CarFaxApplicationTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    //Greeting("Android")
                     val navController = rememberNavController()
-
                     val carfaxTitle = getString(R.string.carFax_title)
+                    val vehicleInfoText = getString(R.string.vehicle_info)
+                    val compositionContext = LocalContext.current
 
                     NavHost(navController = navController, startDestination = ScreenRoutes.MAIN_SCREEN){
                         composable(route = ScreenRoutes.MAIN_SCREEN){
                             MainScreen(navController = navController, carfaxTitle)
                         }
-                        //composable(route = ScreenRoutes.DETAIL_SCREEN)
+                        composable(
+                            route = ScreenRoutes.DETAIL_SCREEN + "?make={make}&model={model}&year={year}&price={price}&location={location}",
+                            arguments =listOf(
+                                navArgument(name= "make"){
+                                    type = NavType.StringType
+                                    defaultValue = ""
+                                },
+                                navArgument(name = "model"){
+                                    type = NavType.StringType
+                                    defaultValue = "-1"
+                                },
+                                navArgument(name = "year"){
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                },
+                                navArgument(name = "price"){
+                                    type = NavType.FloatType
+                                    defaultValue = 0.0
+                                },
+                                navArgument(name = "location"){
+                                    type = NavType.StringType
+                                    defaultValue = ""
+                                }
+                            )
+                        ){
+                            DetailScreen(compositionContext = compositionContext, vehicleInfoText = vehicleInfoText)
+                        }
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    CarFaxApplicationTheme {
-        Greeting("Android")
     }
 }

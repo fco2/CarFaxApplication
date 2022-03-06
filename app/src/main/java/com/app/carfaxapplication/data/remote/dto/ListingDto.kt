@@ -79,6 +79,7 @@ fun ListingDto.toListing(): Listing{
         mileage = mileage,
         transmission = transmission,
         vin = vin,
-        fuel = fuel
+        fuel = fuel,
+        displacement = displacement
     )
 }
