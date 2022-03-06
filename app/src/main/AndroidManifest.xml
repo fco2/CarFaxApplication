@@ -5,6 +5,9 @@
     <!--permissions for INTERNET-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- permission for making a call -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
     <application
         android:allowBackup="true"
         android:name=".CarFaxApp"

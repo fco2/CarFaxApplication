@@ -1,9 +1,5 @@
 package com.app.carfaxapplication.domain.model
 
-import com.app.carfaxapplication.data.remote.dto.DealerDto
-import com.app.carfaxapplication.data.remote.dto.ImagesDto
-import com.google.gson.annotations.SerializedName
-
 data class Listing(
     val dealer: Dealer,
     val dealerType: String,
@@ -21,5 +17,6 @@ data class Listing(
     val interiorColor: String,
     val mileage: Int,
     val transmission: String,
-    val vin: String
+    val vin: String,
+    val fuel: String
 )

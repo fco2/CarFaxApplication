@@ -62,10 +62,10 @@ data class ListingDto(
 
 fun ListingDto.toListing(): Listing{
     return Listing(
-        dealer = dealer,
+        dealer = dealer.toDealer(),
         dealerType = dealerType,
         id = id,
-        images = images,
+        images = images.toImages(),
         make = make,
         model = model,
         trim = trim,
@@ -78,6 +78,7 @@ fun ListingDto.toListing(): Listing{
         interiorColor = interiorColor,
         mileage = mileage,
         transmission = transmission,
-        vin = vin
+        vin = vin,
+        fuel = fuel
     )
 }

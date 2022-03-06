@@ -6,6 +6,6 @@ import retrofit2.http.GET
 interface CarInfoApi {
 
     @GET("/assignment.json")
-    fun getAllCarInfo(): CarInfoDto
+    suspend fun getAllCarInfo(): CarInfoDto
 
 }
