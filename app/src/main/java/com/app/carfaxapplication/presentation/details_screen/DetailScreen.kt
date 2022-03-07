@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.app.carfaxapplication.core.Util
 import com.app.carfaxapplication.core.Util.hasBeenDeniedForever
 import com.app.carfaxapplication.ui.theme.DarkBabyBlue
@@ -38,7 +40,9 @@ import com.google.accompanist.permissions.rememberPermissionState
 fun DetailScreen(
     modifier: Modifier = Modifier,
     viewModel: DetailScreenViewModel = hiltViewModel(),
-    vehicleInfoText: String = ""
+    vehicleInfoText: String = "",
+    placeHolderImageId: Int,
+    imageContentDescription: String,
 ){
     val state = viewModel.currentCarInfoState
     //get the context here
@@ -54,10 +58,15 @@ fun DetailScreen(
             .background(Color.White)
         ) {
             AsyncImage(
-                model = state.listing.images.firstPhoto.large, contentDescription = "Car image",
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(state.listing.images.firstPhoto.large)
+                    .crossfade(true)
+                    .error(placeHolderImageId)
+                    .build(),
+                placeholder = painterResource(placeHolderImageId),
+                contentDescription = imageContentDescription,
                 contentScale = ContentScale.FillWidth,
-                modifier = modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
                     .height(200.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))

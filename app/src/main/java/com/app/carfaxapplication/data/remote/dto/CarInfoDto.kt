@@ -1,6 +1,6 @@
 package com.app.carfaxapplication.data.remote.dto
 
-import com.app.carfaxapplication.domain.model.CarInfo
+import com.app.carfaxapplication.data.local.entity.CarInfoEntity
 
 data class CarInfoDto(
     val backfillCount: Int,
@@ -15,8 +15,8 @@ data class CarInfoDto(
     val totalPageCount: Int
 )
 
-fun CarInfoDto.toCarInfo(): CarInfo{
-    return CarInfo(
+fun CarInfoDto.toCarInfoEntity(): CarInfoEntity{
+    return CarInfoEntity(
         listings = listings.map { it.toListing() },
         searchArea = searchArea.toSearchArea()
     )

@@ -31,10 +31,17 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     val carfaxTitle = getString(R.string.carFax_title)
                     val vehicleInfoText = getString(R.string.vehicle_info)
+                    val placeholderImgId = R.drawable.placeholder_img
+                    val imgContentDescription = getString(R.string.car_image_placeholder_text)
 
                     NavHost(navController = navController, startDestination = ScreenRoutes.MAIN_SCREEN){
                         composable(route = ScreenRoutes.MAIN_SCREEN){
-                            MainScreen(navController = navController, carfaxTitle)
+                            MainScreen(
+                                navController = navController,
+                                carfaxTitle,
+                                placeholderImgId,
+                                imgContentDescription
+                            )
                         }
                         composable(
                             route = ScreenRoutes.DETAIL_SCREEN + "?make={make}&model={model}&year={year}&price={price}&location={location}",
@@ -61,7 +68,11 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ){
-                            DetailScreen(vehicleInfoText = vehicleInfoText)
+                            DetailScreen(
+                                vehicleInfoText = vehicleInfoText,
+                                placeHolderImageId = placeholderImgId,
+                                imageContentDescription = imgContentDescription
+                            )
                         }
                     }
                 }

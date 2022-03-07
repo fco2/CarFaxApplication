@@ -10,7 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +26,8 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 fun MainScreen(
     navController: NavController,
     carfaxTitle: String,
+    placeHolderImageId: Int,
+    imageContentDescription: String,
     viewModel: MainScreenViewModel = hiltViewModel()
 ){
     val allCarInfoState = viewModel.allCarInfoState
@@ -53,7 +54,12 @@ fun MainScreen(
 
             LazyColumn(modifier = Modifier.fillMaxWidth()){
                 items(allCarInfoState.allCarInfo){ listingItem ->
-                    AllCarInfoItem(listing = listingItem, searchArea = searchArea){ listing ->
+                    AllCarInfoItem(
+                        listing = listingItem,
+                        searchArea = searchArea,
+                        placeHolderImageId = placeHolderImageId,
+                        imageContentDescription = imageContentDescription
+                    ){ listing ->
                         // navigate to detail view
                         val location = "${searchArea.city}, ${searchArea.state}"
                         navController.navigate(ScreenRoutes.DETAIL_SCREEN

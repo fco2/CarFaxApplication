@@ -1,6 +1,5 @@
 package com.app.carfaxapplication.presentation.details_screen
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -42,17 +41,14 @@ class DetailScreenViewModel @Inject constructor(
     }
 
     private fun getCurrentCarInfo(make: String, model: String, year: Int, price: Double){
-
         allCarInfoUseCase().onEach {  result ->
             currentCarInfoState = when(result){
                 is Resource.Loading -> {
                     CurrentCarInfoState(isLoading = true)
                 }
                 is Resource.Success -> {
-                    // this will give us the listing where our id matches the id on the list of listings
-                    //added filter for make, model, year and price since the id was not unique.
-
-                    //Log.d("CHUKA", "make from api: ${result.data!!.listings.first().make}")
+                    // this will give us the listing where below filters matches the properties returned from the list of listings
+                    //filters include: make, model, year and price . Using these since the id was not unique.
 
                     CurrentCarInfoState(isLoading = false, listing = result.data!!.listings
                         .first {it.make == make && it.model == model && it.year == year && it.currentPrice == price})

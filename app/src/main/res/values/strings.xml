@@ -3,4 +3,5 @@
     <string name="carFax_title">CARFAX</string>
     <string name="call_dealer">CALL DEALER</string>
     <string name="vehicle_info">Vehicle Info</string>
+    <string name="car_image_placeholder_text">Car Image</string>
 </resources>
