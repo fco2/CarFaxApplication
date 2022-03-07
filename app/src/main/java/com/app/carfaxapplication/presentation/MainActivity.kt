@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,10 +15,13 @@ import com.app.carfaxapplication.presentation.details_screen.DetailScreen
 import com.app.carfaxapplication.presentation.main_screen.MainScreen
 import com.app.carfaxapplication.presentation.util.ScreenRoutes
 import com.app.carfaxapplication.ui.theme.CarFaxApplicationTheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalPermissionsApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -29,7 +31,6 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     val carfaxTitle = getString(R.string.carFax_title)
                     val vehicleInfoText = getString(R.string.vehicle_info)
-                    val compositionContext = LocalContext.current
 
                     NavHost(navController = navController, startDestination = ScreenRoutes.MAIN_SCREEN){
                         composable(route = ScreenRoutes.MAIN_SCREEN){
@@ -60,7 +61,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ){
-                            DetailScreen(compositionContext = compositionContext, vehicleInfoText = vehicleInfoText)
+                            DetailScreen(vehicleInfoText = vehicleInfoText)
                         }
                     }
                 }

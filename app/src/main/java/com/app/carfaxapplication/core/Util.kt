@@ -1,5 +1,7 @@
 package com.app.carfaxapplication.core
 
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 import java.text.DecimalFormat
 import kotlin.math.floor
 import kotlin.math.log10
@@ -18,5 +20,10 @@ object Util {
         } else {
             DecimalFormat("#,##0").format(numValue)
         }
+    }
+
+    @ExperimentalPermissionsApi
+    fun PermissionState.hasBeenDeniedForever(): Boolean {
+        return !this.shouldShowRationale && this.permissionRequested
     }
 }

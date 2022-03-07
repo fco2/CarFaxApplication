@@ -20,14 +20,15 @@ import com.app.carfaxapplication.presentation.main_screen.components.AllCarInfoI
 import com.app.carfaxapplication.presentation.util.ScreenRoutes
 import com.app.carfaxapplication.ui.theme.CustomBackground
 import com.app.carfaxapplication.ui.theme.DarkBabyBlue
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MainScreen(
     navController: NavController,
     carfaxTitle: String,
     viewModel: MainScreenViewModel = hiltViewModel()
 ){
-    val compositionContext = LocalContext.current
     val allCarInfoState = viewModel.allCarInfoState
     val searchArea = viewModel.searchArea
 
@@ -52,7 +53,7 @@ fun MainScreen(
 
             LazyColumn(modifier = Modifier.fillMaxWidth()){
                 items(allCarInfoState.allCarInfo){ listingItem ->
-                    AllCarInfoItem(listing = listingItem, searchArea = searchArea, compositionContext = compositionContext){ listing ->
+                    AllCarInfoItem(listing = listingItem, searchArea = searchArea){ listing ->
                         // navigate to detail view
                         val location = "${searchArea.city}, ${searchArea.state}"
                         navController.navigate(ScreenRoutes.DETAIL_SCREEN
