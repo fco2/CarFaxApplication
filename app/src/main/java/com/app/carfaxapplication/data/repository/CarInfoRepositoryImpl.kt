@@ -21,7 +21,7 @@ class CarInfoRepositoryImpl @Inject constructor(
 
     override fun getAllCarInfo(): Flow<Resource<CarInfo>> = flow{
         emit(Resource.Loading<CarInfo>())
-        //this null check is important, since
+        //this null check is important, since first time the app is launched after installation, there is no data in the database so this will be null
         val allCarInfoFromDb = dao.getAllCarInfo()?.toCarInfo()
 
         emit(Resource.Loading<CarInfo>(allCarInfoFromDb))
@@ -36,8 +36,12 @@ class CarInfoRepositoryImpl @Inject constructor(
         }catch (e: IOException){
             emit(Resource.Error<CarInfo>(e.localizedMessage ?: "An unexpected error occurred!", data = allCarInfoFromDb))
         }finally {
-            val latestCarInfoFromDb = dao.getAllCarInfo().toCarInfo()
-            emit(Resource.Success<CarInfo>(latestCarInfoFromDb))
+            val latestCarInfoFromDb = dao.getAllCarInfo()
+            if(latestCarInfoFromDb == null){
+                emit(Resource.Success<CarInfo>(CarInfo()))
+            }else{
+                emit(Resource.Success<CarInfo>(latestCarInfoFromDb.toCarInfo()))
+            }
         }
     }
 }
